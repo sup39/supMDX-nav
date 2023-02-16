@@ -1,6 +1,6 @@
 {
   "name": "@sup39/mdx-nav",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "author": "sup39 <dev@sup39.dev>",
   "repository": "github.com:sup39/supMDX-nav",
   "description": "Nav component for supMDX",

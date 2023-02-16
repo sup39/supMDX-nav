@@ -2,14 +2,14 @@ import React, {useState} from 'react';
 import Link from 'next/link';
 export type NavEntryInfo = {
   label: string
-  link: string
+  path: string
   children?: NavEntryInfo[]
 };
 
 export function NavEntry<Body, >({
-  entry: {label, link, children}, dir, here, children: childrenJSX,
+  entry: {label, path, children}, dir, here, children: childrenJSX,
 }: {entry: NavEntryInfo, dir: string, here: string, children?: Body}) {
-  const href = dir+link;
+  const href = dir+path;
   const isHere = href.replace(/\/$/, '')===here; // remove trailing slash
   const isRHere = isHere || here.startsWith(href); // here or is children
 
@@ -22,7 +22,7 @@ export function NavEntry<Body, >({
     </div>
     {isHere ? childrenJSX : <></>}
     <div className='nav-dir-child'>{
-      children.map(entry => <NavEntry key={entry.link} entry={entry} dir={href} here={here}>{childrenJSX}</NavEntry>)
+      children.map(entry => <NavEntry key={entry.path} entry={entry} dir={href} here={here}>{childrenJSX}</NavEntry>)
     }</div>
   </></div> : <div className={entryCls}>
     <Link href={href}>{label}</Link>

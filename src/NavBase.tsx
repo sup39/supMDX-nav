@@ -24,7 +24,7 @@ export function NavBase({
   return <nav className={className}>
     {children}
     <div className="nav-root">
-      {entries.map(entry => <NavEntry key={entry.link} entry={entry} dir={'/'} here={pathname} />)}
+      {entries.map(entry => <NavEntry key={entry.path} entry={entry} dir={'/'} here={pathname} />)}
       {headingsJSX}
     </div>
   </nav>;
