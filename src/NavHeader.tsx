@@ -1,5 +1,4 @@
 import React from 'react';
-import Link from 'next/link';
 
 export type NavHeaderConfig = {
   title: string
@@ -20,7 +19,7 @@ export function NavHeader({config, onToggleFold}: {
   const {title, subtitle, icon: icon0} = config;
   const icon = typeof icon0 === 'string' ? {href: icon0} : icon0;
   return <header>
-    <Link href="/" id="icon-link">
+    <a href="/" id="icon-link">
       {icon?.href && <img className="icon"
         src={icon?.href}
         alt={icon?.alt ?? 'icon'}
@@ -31,7 +30,7 @@ export function NavHeader({config, onToggleFold}: {
         <div>{title}</div>
         <div>{subtitle}</div>
       </div>
-    </Link>
+    </a>
     <div className="menu-toggle" onClick={onToggleFold} />
   </header>;
 }

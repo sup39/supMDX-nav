@@ -28,5 +28,5 @@ export default {
       exclude: 'node_modules/**',
     }),
   ],
-  external: ['react', 'react-dom', 'next/link'],
+  external: ['react', 'react-dom'],
 };

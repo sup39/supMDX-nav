@@ -1,6 +1,6 @@
 {
   "name": "@sup39/mdx-nav",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "author": "sup39 <dev@sup39.dev>",
   "repository": "github.com:sup39/supMDX-nav",
   "description": "Nav component for supMDX",
@@ -11,7 +11,7 @@
     "dist/*"
   ],
   "scripts": {
-    "build": "rollup -c",
+    "build": "rm -rf dist && rollup -c",
     "lint": "eslint --ext .ts --ext .tsx src/",
     "pre-commit:add": "git add -u"
   },
@@ -43,7 +43,6 @@
     "pre-commit:add"
   ],
   "peerDependencies": {
-    "next": "^13",
     "react": "^18"
   }
 }

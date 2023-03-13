@@ -1,9 +1,8 @@
 'use strict';
 
 var React = require('react');
-var Link = require('next/link');
 
-/******************************************************************************
+/*! *****************************************************************************
 Copyright (c) Microsoft Corporation.
 
 Permission to use, copy, modify, and/or distribute this software for any
@@ -41,22 +40,27 @@ function __rest(s, e) {
     return t;
 }
 
+var addTrailingSlash = function (url) { return url.endsWith('/') ? url : url + '/'; };
 function NavEntry(_a) {
     var _b = _a.entry, label = _b.label, path = _b.path, children = _b.children, dir = _a.dir, here = _a.here, childrenJSX = _a.children;
-    var href = dir + path;
-    var isHere = href.replace(/\/$/, '') === here; // remove trailing slash
-    var isRHere = isHere || here.startsWith(href); // here or is children
+    // if path is not URL, prepend dir (and trailing slash)
+    var href = path.includes('://') ? path : addTrailingSlash(dir) + path;
+    var hrefDir = addTrailingSlash(href);
+    var isHere = hrefDir === addTrailingSlash(here); // compared with trailing slash
+    var isRHere = isHere || here.startsWith(hrefDir); // here OR children
     var _c = React.useState(isRHere), toggle = _c[0], setToggle = _c[1];
     var entryCls = 'nav-entry' + (isHere ? ' nav-here' : '');
     return (children === null || children === void 0 ? void 0 : children.length) ? React.createElement("div", { className: 'nav-dir' + (toggle ? ' nav-fold-open' : '') },
         React.createElement(React.Fragment, null,
             React.createElement("div", { className: entryCls },
-                React.createElement(Link, { href: href }, label),
+                React.createElement("a", { href: href }, label),
                 React.createElement("svg", { viewBox: "0 0 8 8", onClick: function () { return setToggle(function (e) { return !e; }); } },
                     React.createElement("polyline", { points: "6 3 4 5 2 3" }))),
             isHere ? childrenJSX : React.createElement(React.Fragment, null),
-            React.createElement("div", { className: 'nav-dir-child' }, children.map(function (entry) { return React.createElement(NavEntry, { key: entry.path, entry: entry, dir: href, here: here }, childrenJSX); })))) : React.createElement("div", { className: entryCls },
-        React.createElement(Link, { href: href }, label));
+            React.createElement("div", { className: 'nav-dir-child' }, children.map(function (entry) {
+                return React.createElement(NavEntry, { key: entry.path, entry: entry, dir: hrefDir, here: here }, childrenJSX);
+            })))) : React.createElement("div", { className: entryCls },
+        React.createElement("a", { href: href }, label));
 }
 
 function NavBase(_a) {
@@ -79,7 +83,7 @@ function NavHeader(_a) {
     var title = config.title, subtitle = config.subtitle, icon0 = config.icon;
     var icon = typeof icon0 === 'string' ? { href: icon0 } : icon0;
     return React.createElement("header", null,
-        React.createElement(Link, { href: "/", id: "icon-link" },
+        React.createElement("a", { href: "/", id: "icon-link" },
             (icon === null || icon === void 0 ? void 0 : icon.href) && React.createElement("img", { className: "icon", src: icon === null || icon === void 0 ? void 0 : icon.href, alt: (_b = icon === null || icon === void 0 ? void 0 : icon.alt) !== null && _b !== void 0 ? _b : 'icon', width: (_d = (_c = icon === null || icon === void 0 ? void 0 : icon.width) !== null && _c !== void 0 ? _c : icon === null || icon === void 0 ? void 0 : icon.size) !== null && _d !== void 0 ? _d : 96, height: (_f = (_e = icon === null || icon === void 0 ? void 0 : icon.height) !== null && _e !== void 0 ? _e : icon === null || icon === void 0 ? void 0 : icon.size) !== null && _f !== void 0 ? _f : 96 }),
             React.createElement("div", { className: "icon-text" },
                 React.createElement("div", null, title),
